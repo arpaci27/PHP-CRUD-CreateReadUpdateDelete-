@@ -40,7 +40,7 @@
       <?php endforeach; ?>
         </table>
         <br>
-        <a href="adduser.php" class="btn btn-primary">Add User</a>
+        <a href="adduser.php" class="btn btn-primary">Add User</a>   <?php require 'script.php'; ?>
     </div>
 </body>
 </html>
