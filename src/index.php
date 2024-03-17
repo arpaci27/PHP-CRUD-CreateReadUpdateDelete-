@@ -14,7 +14,7 @@
 </head>
 <body>
     <div>
-        <table class="table table-hover">
+        <table class="table table-bordered  table-hover">
             <tr>
             <td>#</td>
             <td>Name</td>

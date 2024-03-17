@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Index</title>
+  <title>Edit User</title>
   <!-- Include Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <!-- Background Color Style -->
@@ -13,34 +13,33 @@
   </style>
 </head>
 <body>
-    <div>
-        <table class="table table-hover">
-            <tr>
-            <td>#</td>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Gender</td>
-            <td>Action</td></tr>
-            <?php
-      require 'config.php';
-      $rows = mysqli_query($conn, "SELECT * FROM users");
-      $i = 1;
-      ?>
-      <?php foreach($rows as $row) : ?>
-      <tr id = <?php echo $row["ID"]; ?>>
-        <td><?php echo $i++; ?></td>
-        <td><?php echo $row["Name"]; ?></td>
-        <td><?php echo $row["Email"]; ?></td>
-        <td><?php echo $row["Gender"]; ?></td>
-        <td>
-          <a class="btn btn-primary" href="edituser.php?id=<?php echo $row['ID']; ?>">Edit</a>
-          <button class="btn btn-danger" type="button" onclick = "submitData(<?php echo $row['ID']; ?>);">Delete</button>
-        </td>
-      </tr>
-      <?php endforeach; ?>
-        </table>
-        <br>
-        <a href="adduser.php" class="btn btn-primary">Add User</a>
+  <h2>Edit User</h2>
+  <form autocomplete="off" action="" method="post">
+    <?php
+    require 'config.php';
+    $id = $_GET["id"];
+    $rows = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM users WHERE id = $id"));
+    ?>
+    <input type="hidden" class="form-control" id="id" value="<?php echo $rows['ID']; ?>">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" value="<?php echo $rows['Name']; ?>">
     </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" id="email" value="<?php echo $rows['Email']; ?>">
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select class="form-control" id="gender">
+        <option value="Male" <?php if($rows["Gender"] == "Male") echo "selected"; ?>>Male</option>
+        <option value="Female" <?php if($rows["Gender"] == "Female") echo "selected"; ?>>Female</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="submitData('edit');">Edit</button>
+  </form>
+  <br>
+  <a href="index.php" class="btn btn-link">Go To Index</a>
+  <?php require 'script.php'; ?>
 </body>
 </html>
